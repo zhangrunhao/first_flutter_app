@@ -14,6 +14,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData( // 主题
         primarySwatch: Colors.green,
       ),
+      routes: { // 注册路由
+        "new_page": (context) => NewRoute(),
+        "tip_widgets": (context) => EchoRoute("内容固定"),
+      },
       home: MyHomePage(title: 'Flutter Demo Home Page'), // 首页
     );
   }
@@ -81,6 +85,8 @@ class _MyHomePageState extends State<MyHomePage> { // 一个状态类
               child: Text('open new route'),
               textColor: Colors.blue,
               onPressed: () {
+                // 
+                // Navigator.pushNamed(context, 'tip_widgets');
                 // push(context, route)
                 // pop (context, [result]), 页面关闭时, 给上一个页面返回数据
                 Navigator.push(
@@ -92,7 +98,9 @@ class _MyHomePageState extends State<MyHomePage> { // 一个状态类
                     // maintainState: 路由没用的时候, 释放所有资源
                     // fullscreenDialog: 全屏的模态框对话框
                     builder: (context) {
-                      return new NewRoute();
+                      // return new NewRoute();
+                      // 可以灵活配置
+                      return new EchoRoute('$_counter');
                     }
                   )
                 );
@@ -110,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> { // 一个状态类
   }
 }
 
-// 路由
+// 页面
 class NewRoute extends StatelessWidget { // 新的路由页面
   @override
   Widget build(BuildContext context) {
@@ -120,6 +128,25 @@ class NewRoute extends StatelessWidget { // 新的路由页面
       ),
       body: Center(
         child: Text("This is new route"),
+      ),
+    );
+  }
+}
+
+// 页面
+class EchoRoute extends StatelessWidget {
+  // 为什么都是通过这种再执行一遍的方式接受参数???
+  EchoRoute(this.tip);
+  final String tip;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Echo route'),
+      ),
+      body: Center(
+        // 回显tip内容
+        child: Text(tip),
       ),
     );
   }
