@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
 
 // 应用首页
 class MyHomePage extends StatefulWidget {
+  // todo: 不理解的语法结构
   MyHomePage({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -71,11 +72,32 @@ class _MyHomePageState extends State<MyHomePage> { // 一个状态类
           children: <Widget>[
             Text(
               'You have pushed the button this many times:',
-            ),
+            ),  
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.display1,
             ),
+            FlatButton(
+              child: Text('open new route'),
+              textColor: Colors.blue,
+              onPressed: () {
+                // push(context, route)
+                // pop (context, [result]), 页面关闭时, 给上一个页面返回数据
+                Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                    // MaterialPageRoute定义占整个屏幕的模态路由
+                    // builder: 返回一个新的widget
+                    // setting: 设置
+                    // maintainState: 路由没用的时候, 释放所有资源
+                    // fullscreenDialog: 全屏的模态框对话框
+                    builder: (context) {
+                      return new NewRoute();
+                    }
+                  )
+                );
+              },
+            )
           ],
         ),
       ),
@@ -84,6 +106,21 @@ class _MyHomePageState extends State<MyHomePage> { // 一个状态类
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+// 路由
+class NewRoute extends StatelessWidget { // 新的路由页面
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold( // 页面脚手架
+      appBar: AppBar(
+        title: Text("New Route"),
+      ),
+      body: Center(
+        child: Text("This is new route"),
+      ),
     );
   }
 }
