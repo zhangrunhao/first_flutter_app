@@ -65,16 +65,8 @@ class _MyHomePageState extends State<MyHomePage> { // 一个状态类
       body: Center( // Center是一个布局widget, 可以让一个简单的元素, 定位在父元素的中间
         child: Column( // Colunm也是布局, 可以让父元素垂直布局.
           // 默认调整自己的大小, 适应水平方向的
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
+          // 打开模拟器, Toggle Debug Paint, 可调试UI
+          // 可以通过mainAxisAlignment控制居中方式.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
