@@ -1,6 +1,6 @@
 // 导入了一套material的UI组件库, flutte默认使用的
 import 'package:flutter/material.dart';
-
+import 'package:english_words/english_words.dart';
 // runApp 顶级的入口函数, 单行函数, 直接执行了
 void main() => runApp(MyApp());
 
@@ -105,7 +105,8 @@ class _MyHomePageState extends State<MyHomePage> { // 一个状态类
                   )
                 );
               },
-            )
+            ),
+            RandomWordsWidget(),
           ],
         ),
       ),
@@ -148,6 +149,18 @@ class EchoRoute extends StatelessWidget {
         // 回显tip内容
         child: Text(tip),
       ),
+    );
+  }
+}
+
+class RandomWordsWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // 生成随机字符串
+    final wordPair = new WordPair.random();
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Text(wordPair.toString()),
     );
   }
 }
