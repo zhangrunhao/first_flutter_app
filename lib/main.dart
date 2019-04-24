@@ -1,6 +1,13 @@
 // 导入了一套material的UI组件库, flutte默认使用的
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+
+import 'dart:async' show Future;
+import 'package:flutter/services.dart' show rootBundle;
+
+Future<String> loadAsset() async {
+  return await rootBundle.loadString('images/foot.png');
+}
 // runApp 顶级的入口函数, 单行函数, 直接执行了
 void main() => runApp(MyApp());
 
@@ -9,18 +16,33 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp( // 提供的顶级app框架
-      title: 'Flutter Demo', // 名称
-      theme: ThemeData( // 主题
-        primarySwatch: Colors.green,
+  return new DecoratedBox(
+    decoration: new BoxDecoration(
+      image: new DecorationImage(
+        image: new AssetImage('images/download.jpg'),
       ),
-      routes: { // 注册路由
-        "new_page": (context) => NewRoute(),
-        "tip_widgets": (context) => EchoRoute("内容固定"),
-      },
-      home: MyHomePage(title: 'Flutter Demo Home Page'), // 首页
-    );
-  }
+    ),
+  );
+}
+  // Widget build(BuildContext context) {
+
+  //   var as = loadAsset();
+  //   print(11111);
+  //   print(as);
+  //   print(2222222);
+
+  //   return MaterialApp( // 提供的顶级app框架
+  //     title: 'Flutter Demo', // 名称
+  //     theme: ThemeData( // 主题
+  //       primarySwatch: Colors.green,
+  //     ),
+  //     routes: { // 注册路由
+  //       "new_page": (context) => NewRoute(),
+  //       "tip_widgets": (context) => EchoRoute("内容固定"),
+  //     },
+  //     home: MyHomePage(title: 'Flutter Demo Home Page'), // 首页
+  //   );
+  // }
 }
 
 // Stateful widget: 有状态的类, 这些状态在widget的声明周期中可变. Stateless widget: 状态不可变的类 
