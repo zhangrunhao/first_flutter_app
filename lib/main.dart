@@ -18,6 +18,29 @@ void main() {
     reportError(details);
   });
 }
+
+class Echo extends StatelessWidget {
+  const Echo({
+    Key key,
+    @required this.text,
+    this.backgroundColor: Colors.grey,
+  }):super(key: key);
+
+  final String text;
+  final Color backgroundColor;
+
+  @override
+  Widget build(BuildContext contxt) {
+    return Center(
+      child: Container(
+        color: backgroundColor,
+        child: Text(text),
+      ),
+    );
+  }
+}
+
+
 FlutterErrorDetails makeDetails(Object obj, StackTrace stack){
   // 构建错误信息
   final FlutterErrorDetails details = FlutterErrorDetails(
@@ -30,6 +53,7 @@ FlutterErrorDetails makeDetails(Object obj, StackTrace stack){
 
 void reportError(FlutterErrorDetails details) {
   print('在此处处理我们所有的异常');
+  print(details);
 }
 // MyApp 函数的执行返回了一个全局的widget
 class MyApp extends StatelessWidget {
@@ -50,6 +74,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
+
 // Stateful widget: 有状态的类, 这些状态在widget的声明周期中可变. Stateless widget: 状态不可变的类 
 // Stateful widget: 由两部分构成`StatefulWidget`和`State`构成. 类本身不变, 但是State是变化的.
 
@@ -57,7 +83,10 @@ class MyApp extends StatelessWidget {
 // 应用首页
 class MyHomePage extends StatefulWidget {
   // todo: 不理解的语法结构
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({
+    Key key, 
+    this.title
+  }):super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -69,8 +98,11 @@ class MyHomePage extends StatefulWidget {
   // always marked "final".
 
   final String title;
+
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePageState createState() {
+    return _MyHomePageState();
+  }
 }
 
 class _MyHomePageState extends State<MyHomePage> { // 一个状态类
@@ -116,8 +148,6 @@ class _MyHomePageState extends State<MyHomePage> { // 一个状态类
               child: Text('open new route'),
               textColor: Colors.blue,
               onPressed: () {
-                print(1);
-                debugger();
                 // Navigator.pushNamed(context, 'tip_widgets');
                 // push(context, route)
                 // pop (context, [result]), 页面关闭时, 给上一个页面返回数据
