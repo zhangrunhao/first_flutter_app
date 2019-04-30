@@ -1,48 +1,53 @@
 // 导入了一套material的UI组件库, flutte默认使用的
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
-
-import 'dart:async' show Future;
-import 'package:flutter/services.dart' show rootBundle;
-
-Future<String> loadAsset() async {
-  return await rootBundle.loadString('images/foot.png');
-}
+import 'package:flutter/rendering.dart';
 // runApp 顶级的入口函数, 单行函数, 直接执行了
-void main() => runApp(MyApp());
+void main() {
+  FlutterError.onError = (FlutterErrorDetails details) {
+    // 在此处捕获一些全局的错误
+    reportError(details);
+  };
+  runZoned(() {
+    runApp(MyApp());
+  }, onError: (Object obj, StackTrace stack) {
+    var details = makeDetails(obj, stack);
+    reportError(details);
+  });
+}
+FlutterErrorDetails makeDetails(Object obj, StackTrace stack){
+  // 构建错误信息
+  final FlutterErrorDetails details = FlutterErrorDetails(
+    exception: obj,
+    stack: stack,
+    library: 'widgets library',
+  );
+  return details; 
+}
 
+void reportError(FlutterErrorDetails details) {
+  print('在此处处理我们所有的异常');
+}
 // MyApp 函数的执行返回了一个全局的widget
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-  return new DecoratedBox(
-    decoration: new BoxDecoration(
-      image: new DecorationImage(
-        image: new AssetImage('images/download.jpg'),
+    return MaterialApp( // 提供的顶级app框架
+      title: 'Flutter Demo', // 名称
+      theme: ThemeData( // 主题
+        primarySwatch: Colors.green,
       ),
-    ),
-  );
-}
-  // Widget build(BuildContext context) {
-
-  //   var as = loadAsset();
-  //   print(11111);
-  //   print(as);
-  //   print(2222222);
-
-  //   return MaterialApp( // 提供的顶级app框架
-  //     title: 'Flutter Demo', // 名称
-  //     theme: ThemeData( // 主题
-  //       primarySwatch: Colors.green,
-  //     ),
-  //     routes: { // 注册路由
-  //       "new_page": (context) => NewRoute(),
-  //       "tip_widgets": (context) => EchoRoute("内容固定"),
-  //     },
-  //     home: MyHomePage(title: 'Flutter Demo Home Page'), // 首页
-  //   );
-  // }
+      routes: { // 注册路由
+        "new_page": (context) => NewRoute(),
+        "tip_widgets": (context) => EchoRoute("内容固定"),
+      },
+      home: MyHomePage(title: 'Flutter Demo Home Page'), // 首页
+    );
+  }
 }
 
 // Stateful widget: 有状态的类, 这些状态在widget的声明周期中可变. Stateless widget: 状态不可变的类 
@@ -64,7 +69,6 @@ class MyHomePage extends StatefulWidget {
   // always marked "final".
 
   final String title;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -73,12 +77,17 @@ class _MyHomePageState extends State<MyHomePage> { // 一个状态类
   int _counter = 0; // 状态, 保存点击的次数
   // 当第一次MyHomePage创建的时候, 这个State类就创建了.
   // 初始化完成后, Flutter通过调用Widget的build来构建展示树
-
   void _incrementCounter() { // 点击后调用此方法
+    print('111111');
+    // debugPrint('222');
+    // debugDumpApp();
+    // debugDumpRenderTree();
+    Timeline.startSync('interesting function');
     setState(() { // setState方法, 用来通知Flutter更新状态, 如果直接执行, 没效果.
       // 可以在此处更新任何需要更新的地方, 无需单独更新widget状态
       _counter++;
     });
+    Timeline.finishSync();
   }
 
   @override
@@ -107,7 +116,8 @@ class _MyHomePageState extends State<MyHomePage> { // 一个状态类
               child: Text('open new route'),
               textColor: Colors.blue,
               onPressed: () {
-                // 
+                print(1);
+                debugger();
                 // Navigator.pushNamed(context, 'tip_widgets');
                 // push(context, route)
                 // pop (context, [result]), 页面关闭时, 给上一个页面返回数据
@@ -141,7 +151,6 @@ class _MyHomePageState extends State<MyHomePage> { // 一个状态类
   }
 }
 
-// 页面
 class NewRoute extends StatelessWidget { // 新的路由页面
   @override
   Widget build(BuildContext context) {
