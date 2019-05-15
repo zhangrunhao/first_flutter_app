@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/rendering.dart';
@@ -19,6 +20,83 @@ void main() {
   });
 }
 
+class CounterWidget extends StatefulWidget {
+  const CounterWidget({
+    Key key,
+    this.initValue: 0
+  });
+
+  final int initValue;
+
+  @override
+  _CounterWidgetState createState() => new _CounterWidgetState();
+}
+
+class _CounterWidgetState extends State<CounterWidget> {
+  // init: initState => didChangeDependencies => build
+
+  // setState: build
+
+  // 改变state中的数据 hot reload: reassemble => didUpdateWidget => build
+  // 改变widget hot reload: reassemble => deactive => dispose
+  int _counter;
+
+  @override
+  void initState() {
+    super.initState();
+    // 初始化状态
+    _counter=widget.initValue;
+    print('initState');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print('build');
+    return Scaffold(
+      body: Center(
+        child: FlatButton(
+          child: Text('$_counter'),
+          onPressed: () => {
+            setState(() => {
+              _counter = _counter + 1
+            }),
+          },
+        ),
+      ),
+    );
+  }
+
+  @override
+  void didUpdateWidget(CounterWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print('didUpdateWidget');
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    print('deactivate');
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    print('dispose');
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    print('reassemble');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print('didChangeDependencies');
+  }
+}
+
 class Echo extends StatelessWidget {
   const Echo({
     Key key,
@@ -30,7 +108,7 @@ class Echo extends StatelessWidget {
   final Color backgroundColor;
 
   @override
-  Widget build(BuildContext contxt) {
+  Widget build(BuildContext context) {
     return Center(
       child: Container(
         color: backgroundColor,
@@ -39,7 +117,6 @@ class Echo extends StatelessWidget {
     );
   }
 }
-
 
 FlutterErrorDetails makeDetails(Object obj, StackTrace stack){
   // 构建错误信息
@@ -69,7 +146,10 @@ class MyApp extends StatelessWidget {
         "new_page": (context) => NewRoute(),
         "tip_widgets": (context) => EchoRoute("内容固定"),
       },
-      home: MyHomePage(title: 'Flutter Demo Home Page'), // 首页
+      // home: CounterWidget(),
+      home: Text("xxx"),
+      // home: MyHomePage(title: 'Flutter Demo Home Page'), // 首页
+      // home: Echo(text: "hello world"),
     );
   }
 }
@@ -110,7 +190,7 @@ class _MyHomePageState extends State<MyHomePage> { // 一个状态类
   // 当第一次MyHomePage创建的时候, 这个State类就创建了.
   // 初始化完成后, Flutter通过调用Widget的build来构建展示树
   void _incrementCounter() { // 点击后调用此方法
-    print('111111');
+    // print('111111');
     // debugPrint('222');
     // debugDumpApp();
     // debugDumpRenderTree();
