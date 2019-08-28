@@ -1,5 +1,6 @@
 // 导入了一套material的UI组件库, flutte默认使用的
 import 'dart:async';
+import 'dart:core';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
@@ -8,16 +9,40 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/rendering.dart';
 // runApp 顶级的入口函数, 单行函数, 直接执行了
 void main() {
-  FlutterError.onError = (FlutterErrorDetails details) {
+  FlutterError.onError = (FlutterErrorDetails details) { // 因为所有的错误, 都会调用 onError回调
     // 在此处捕获一些全局的错误
     reportError(details);
   };
-  runZoned(() {
-    runApp(MyApp());
-  }, onError: (Object obj, StackTrace stack) {
-    var details = makeDetails(obj, stack);
-    reportError(details);
-  });
+  runZoned(
+    () => runApp(MyApp()),
+    zoneSpecification: ZoneSpecification(
+      print: (Zone self, ZoneDelegate parent, Zone zone, String line) {
+        collectLog(line); // 收集日志
+      }
+    ),
+    onError: (Object obj, StackTrace stack) {
+      var details = makeDetails(obj, stack);
+      reportError(details);
+    }
+  );
+}
+FlutterErrorDetails makeDetails(Object obj, StackTrace stack){
+  // 构建错误信息
+  final FlutterErrorDetails details = FlutterErrorDetails(
+    exception: obj,
+    stack: stack,
+    library: 'widgets library',
+  );
+  return details; 
+}
+
+void reportError(FlutterErrorDetails details) {
+  print('在此处处理我们所有的异常');
+  print(details);
+}
+
+void collectLog(String line) {
+  //... 收集日志
 }
 
 class CounterWidget extends StatefulWidget {
@@ -118,20 +143,6 @@ class Echo extends StatelessWidget {
   }
 }
 
-FlutterErrorDetails makeDetails(Object obj, StackTrace stack){
-  // 构建错误信息
-  final FlutterErrorDetails details = FlutterErrorDetails(
-    exception: obj,
-    stack: stack,
-    library: 'widgets library',
-  );
-  return details; 
-}
-
-void reportError(FlutterErrorDetails details) {
-  print('在此处处理我们所有的异常');
-  print(details);
-}
 // MyApp 函数的执行返回了一个全局的widget
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -147,8 +158,8 @@ class MyApp extends StatelessWidget {
         "tip_widgets": (context) => EchoRoute("内容固定"),
       },
       // home: CounterWidget(),
-      home: Text("xxx"),
-      // home: MyHomePage(title: 'Flutter Demo Home Page'), // 首页
+      // home: Text("xxx"),
+      home: MyHomePage(title: 'Flutter Demo Home Page'), // 首页
       // home: Echo(text: "hello world"),
     );
   }
