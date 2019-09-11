@@ -33,7 +33,7 @@ class Echo extends StatelessWidget {
           children: <Widget>[
             new Text(text),
             new FlatButton(
-              child: Text('调整新页面'),
+              child: Text('跳转新页面'),
               onPressed: () {
                 Navigator.push(context,
                   MaterialPageRoute(
@@ -63,6 +63,7 @@ class ContextRoute extends StatelessWidget {
           builder: (context) { // 这是往Builder的类中, new的时候, 传入了一个函数. 
             // 在Widget树中向上查找最近的父级`Scaffold`
             Scaffold scaffold = context.ancestorWidgetOfExactType(Scaffold);
+            // TODO: 不明白 scaffold.child as AppBar什么语法含义
             return (scaffold.appBar as AppBar).title;
           }
         ),
