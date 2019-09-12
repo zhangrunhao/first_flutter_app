@@ -14,6 +14,75 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class Counter extends StatefulWidget {
+  const Counter({
+    Key key,
+    this.initValue: 0,
+  });
+
+  final int initValue;
+
+  _CounterState createState() => new _CounterState();
+}
+
+class _CounterState extends State<Counter> {
+  int _couter;
+
+  @override
+  void initState() {
+    super.initState();
+    // 初始化状态
+    _couter=widget.initValue;
+    print('initState');
+  }
+
+  @override
+  Widget build(BuildContext content) {
+    print('build');
+    return Scaffold(
+      body: Center(
+        child: FlatButton(
+          child: Text('$_couter'),
+          // TODO: 不明白,在这个语法, 在表示什么.
+          onPressed: () => setState(
+            () => ++_couter
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void didUpdateWidget(Counter oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print('didUpdateWidget');
+  }
+
+  @override
+  void deactivate() { // 失效
+    super.deactivate();
+    print('deactivate');
+  }
+
+  @override
+  void dispose() { // 丢掉, 处理, 安置
+    super.dispose();
+    print('dispose');
+  }
+
+  @override
+  void reassemble() { // 重组
+    super.reassemble();
+    print('reassemble');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print('didChangeDependencies');
+  }
+}
+
 class Echo extends StatelessWidget {
   const Echo({ // 这里是构造函数
     Key key,
@@ -38,7 +107,9 @@ class Echo extends StatelessWidget {
                 Navigator.push(context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return ContextRoute();
+                      // return ContextRoute();
+                      return  ConterRoute();
+                      // return Text('xxx');
                     },
                   )
                 );
@@ -47,6 +118,18 @@ class Echo extends StatelessWidget {
           ],
         )
       ),
+    );
+  }
+}
+
+class ConterRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('测试生命周期'),
+      ),
+      body: Counter(),
     );
   }
 }
