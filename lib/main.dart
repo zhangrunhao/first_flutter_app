@@ -8,8 +8,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp( // 提供的顶级app框架
       title: 'Flutter Demo', // 名称
+      // home: ConterRoute(),
       home: Echo(text: '张润昊')
-      // home: Scaffold()
     );
   }
 }
@@ -29,7 +29,7 @@ class _CounterState extends State<Counter> {
   int _couter;
 
   @override
-  void initState() {
+  void initState() { // 第一次插入到widget树中
     super.initState();
     // 初始化状态
     _couter=widget.initValue;
@@ -51,33 +51,32 @@ class _CounterState extends State<Counter> {
       ),
     );
   }
-
   @override
-  void didUpdateWidget(Counter oldWidget) {
+  void didUpdateWidget(Counter oldWidget) {  // widget发生重建时
     super.didUpdateWidget(oldWidget);
     print('didUpdateWidget');
   }
 
   @override
-  void deactivate() { // 失效
+  void deactivate() { // State对象从树中移出, 但可能是插入到其他地方, 也可能是直接移出了
     super.deactivate();
     print('deactivate');
   }
 
   @override
-  void dispose() { // 丢掉, 处理, 安置
+  void dispose() { // 如果是State对象直接移出了, 就会调用这个回调
     super.dispose();
     print('dispose');
   }
 
   @override
-  void reassemble() { // 重组
+  void reassemble() { // 重组, 并未执行
     super.reassemble();
     print('reassemble');
   }
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() { // State对象依赖发生变化时.
     super.didChangeDependencies();
     print('didChangeDependencies');
   }
