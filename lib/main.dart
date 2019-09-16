@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/widgets.dart'; // 如果引入风格组件库, 则不需要引入基础组件
+import 'package:flutter/material.dart'; // Material组件库
+import 'package:flutter/cupertino.dart'; // 另一套风格的组件库
 void main() {
   runApp(MyApp());
 }
@@ -8,8 +10,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp( // 提供的顶级app框架
       title: 'Flutter Demo', // 名称
       // home: ConterRoute(),
-      // home: Echo(text: '张润昊')
-      home: ShowSnackBar()
+      // home: Echo(text: '张润昊'),
+      // home: ShowSnackBar(),
+      home: CupertinoTestRoute(),
     );
   }
 }
@@ -188,6 +191,28 @@ class ShowSnackBar extends StatelessWidget {
               child: Text('显示SnackBar'),
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class CupertinoTestRoute extends StatelessWidget {
+  const CupertinoTestRoute({
+    Key key,
+  }):super(key: key);
+  
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Text('Cupertino demo'),
+      ),
+      child: Center(
+        child: CupertinoButton(
+          color: CupertinoColors.activeBlue,
+          child: Text('Press'),
+          onPressed: () {},
         ),
       ),
     );
