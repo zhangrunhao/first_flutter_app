@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp( // 提供的顶级app框架
       title: 'Flutter Demo', // 名称
       // home: ConterRoute(),
-      home: Echo(text: '张润昊')
+      // home: Echo(text: '张润昊')
+      home: ShowSnackBar()
     );
   }
 }
@@ -154,3 +154,42 @@ class ContextRoute extends StatelessWidget {
   }
 }
 
+class ShowSnackBar extends StatelessWidget {
+  const ShowSnackBar({
+    Key key
+  }):super(key: key);
+
+  static GlobalKey<ScaffoldState> _globalKey=GlobalKey();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: _globalKey,
+      appBar: AppBar(
+        title: Text('子树中获取State对象'),
+      ),
+      body: Center(
+        child: Builder(
+          builder: (context) {
+            return RaisedButton(
+              // 第一种获取State对象的方法
+              onPressed: () {
+                // ScaffoldState _state = context.ancestorStateOfType(TypeMatcher<ScaffoldState>());
+                // 如果state对象希望暴露, 默认提供一个`of`方法进行获取
+                // ScaffoldState _state = Scaffold.of(context);
+                // 通过GlobalKey获取State对象
+                ScaffoldState _state = _globalKey.currentState;
+                _state.showSnackBar(
+                  SnackBar(
+                    content: Text('我是SnackBar'),
+                  ),
+                );
+              },
+              child: Text('显示SnackBar'),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
