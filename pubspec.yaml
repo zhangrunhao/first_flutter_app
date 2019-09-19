@@ -57,6 +57,9 @@ flutter:
       fonts:
         - asset: fonts/IndieFlower-Regular.ttf
           weight: 700
+    - family: myIcon
+      fonts:
+        - asset: fonts/iconfont.ttf
     # - family: Schyler
     #   fonts:
     #     - asset: fonts/Schyler-Regular.ttf
