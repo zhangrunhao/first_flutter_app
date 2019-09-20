@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 
-void main () {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  Widget build (BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(),
-        body: SwitchAndCheckBoxTestRoute()
+class SwitchAndCheckBoxTestRoute extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('3.6'),
       ),
+      body: SwitchAndCheckBoxTest(),
     );
   }
 }
-
-class SwitchAndCheckBoxTestRoute extends StatefulWidget {
+class SwitchAndCheckBoxTest extends StatefulWidget {
   _SwitchAndCheckBoxTestRouteState createState () =>  _SwitchAndCheckBoxTestRouteState();
 }
 
