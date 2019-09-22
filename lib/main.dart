@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:first_flutter_app/3/3.6.dart';
+// import 'package:first_flutter_app/3/3.6.dart';
+import 'package:first_flutter_app/3/3.7.dart';
 
 void main(List<String> args) {
   runApp(MyApp());
@@ -18,21 +19,19 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Flutter代码'),
       ),
-      body: Column(
-        children:[ 
-          RaisedButton(
-            child: Text('3.6 SwitchAndCheckBoxTestRoute'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SwitchAndCheckBoxTestRoute()
-                )
-              );
-            },
-          ),
-        ]
-      ),
+      body: Center(
+        child: RaisedButton(
+          child: Text('跳转'),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TextFieldAndFormRoute()
+              )
+            );
+          },
+        ),
+      )
     );
   }
 }
