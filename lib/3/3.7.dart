@@ -17,6 +17,12 @@ class _TextFieldAndFormState extends State{
   TextEditingController _unameController = TextEditingController(
     text: '1234567',
   );
+
+  FocusNode focusNode1 = FocusNode();
+  FocusNode focusNode2 = FocusNode();
+
+  FocusScopeNode focusScopeNode;
+
   void initState () {
     super.initState();
     _unameController.selection = TextSelection(
@@ -26,11 +32,16 @@ class _TextFieldAndFormState extends State{
     _unameController.addListener(() {
       print(_unameController.text);
     });
+    print('init');
+    focusNode1.addListener(() {
+      print(focusNode1.hasFocus);
+    });
   }
   Widget build (BuildContext context) {
     return Column(
       children: <Widget>[
         TextField(
+          focusNode: focusNode1,
           autofocus: true,
           controller: _unameController,
           onChanged: (value) {
@@ -42,6 +53,7 @@ class _TextFieldAndFormState extends State{
           ),
         ),
         TextField(
+          focusNode: focusNode2,
           // autofocus: true,
           decoration: InputDecoration( // 控制外观
             labelText: "密码",
@@ -51,9 +63,25 @@ class _TextFieldAndFormState extends State{
           obscureText: true,
         ),
         RaisedButton(
-          child: Text('输出内容'),
+          child: Text('切换焦点'),
           onPressed: () {
-            print(_unameController.text);
+            /**
+             * 1. FocusScope.of(context)获取Widget树中默认的FocusScopeNode
+             * 2. 把焦点移动到第二个文本输入框中
+             */
+            // 第一种写法
+            // FocusScope.of(context).requestFocus(focusNode2);
+            if (null == focusScopeNode) {
+              focusScopeNode = FocusScope.of(context);
+            }
+            focusScopeNode.requestFocus(focusNode2);
+          },
+        ),
+        RaisedButton(
+          child: Text('隐藏键盘'),
+          onPressed: () {
+            focusNode1.unfocus();
+            focusNode2.unfocus();
           },
         )
       ],
