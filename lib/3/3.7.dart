@@ -10,7 +10,58 @@ class TextFieldAndFormRoute extends StatelessWidget{
 }
 
 class TextFieldAndForm extends StatefulWidget {
- _TextFieldAndFormState createState () => _TextFieldAndFormState();
+ _TextFieldCustomStyleState createState () => _TextFieldCustomStyleState();
+}
+
+class _TextFieldCustomStyleState extends State {
+  Widget build(BuildContext context) {
+    return Theme(
+      data: Theme.of(context).copyWith(
+        hintColor: Colors.grey[200],
+        inputDecorationTheme: InputDecorationTheme(
+          labelStyle: TextStyle(color: Colors.grey), // 定义label字体样式
+          hintStyle: TextStyle(color: Colors.red, fontSize: 12) // 定义提示文本样式
+        )
+      ),
+      child: Column(
+        children: <Widget>[
+          // 优先通过decoration进行定义
+          // 其次可以通过Them进行修改, 或者通过嵌套Widget
+          Container(
+            child: TextField(
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                labelText: "Email",
+                hintText: "电子邮件地址",
+                prefixIcon: Icon(Icons.email),
+                border: InputBorder.none
+              ),
+            ),
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: Colors.grey[200], width: 1.0)
+              )
+            ),
+          ),
+          TextField(
+            decoration: InputDecoration(
+              labelText: "用户名",
+              hintText: "用户名或邮箱",
+              prefixIcon: Icon(Icons.person)
+            ),
+          ),
+          TextField(
+            decoration: InputDecoration(
+              labelText: "密码",
+              hintText: "您的登录密码",
+              prefixIcon: Icon(Icons.lock)
+            ),
+            obscureText: true,
+          )
+        ],
+      ),
+    );
+  }
 }
 
 class _TextFieldAndFormState extends State{
