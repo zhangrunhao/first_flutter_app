@@ -21,11 +21,12 @@ class TestNestColumnWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max, // 有效, 外层的Column为整个屏幕
           children: <Widget>[
-            Expanded( // 可以使用Expand组件, 解决内部最大高度无效的情况
+            Expanded( // 可以使用Expand组件, 解决内部最大高度无效的情况, 不需要再设置最大高度即可
               child: Container(
                 color: Colors.red,
                 child: Column(
-                  mainAxisSize: MainAxisSize.max, // 无效, 内层Column高度为实际高度
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  // mainAxisSize: MainAxisSize.max, // 无效, 内层Column高度为实际高度
                   children: <Widget>[
                     Text('hello world'),
                     Text('I am jack')
