@@ -13,7 +13,8 @@ import 'package:flutter/material.dart';
 // import 'package:first_flutter_app/5/5.3.dart';
 // import 'package:first_flutter_app/5/5.4.dart';
 // import 'package:first_flutter_app/5/5.5.dart';
-import 'package:first_flutter_app/5/5.6.dart';
+// import 'package:first_flutter_app/5/5.6.dart';
+import 'package:first_flutter_app/5/5.7.dart';
 
 void main(List<String> args) {
   runApp(MyApp());
@@ -39,7 +40,7 @@ class HomeScreen extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ScaffoldRoute()
+                builder: (context) => ClipRoute()
               )
             );
           },

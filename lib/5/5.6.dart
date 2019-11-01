@@ -107,9 +107,9 @@ class _ScaffoldRouteState extends State<ScaffoldRoute> {
         shape: CircularNotchedRectangle(),
         child: Row(
           children: <Widget>[
-            IconButton(icon: Icon(Icons.home),),
+            IconButton(icon: Icon(Icons.home), onPressed: () {},),
             SizedBox(),
-            IconButton(icon: Icon(Icons.business),)
+            IconButton(icon: Icon(Icons.business), onPressed: () {},)
           ],
           mainAxisAlignment: MainAxisAlignment.spaceAround,
         ),
