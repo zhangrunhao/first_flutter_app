@@ -16,7 +16,8 @@ import 'package:flutter/material.dart';
 // import 'package:first_flutter_app/5/5.6.dart';
 // import 'package:first_flutter_app/5/5.7.dart';
 // import 'package:first_flutter_app/6/6.2.dart';
-import 'package:first_flutter_app/6/6.3.dart';
+// import 'package:first_flutter_app/6/6.3.dart';
+import 'package:first_flutter_app/6/6.4.dart';
 
 void main(List<String> args) {
   runApp(MyApp());
@@ -42,7 +43,7 @@ class HomeScreen extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ListViewRoute()
+                builder: (context) => GridViewRoute()
               )
             );
           },
