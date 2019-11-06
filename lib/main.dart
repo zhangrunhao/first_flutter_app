@@ -18,7 +18,8 @@ import 'package:flutter/material.dart';
 // import 'package:first_flutter_app/6/6.2.dart';
 // import 'package:first_flutter_app/6/6.3.dart';
 // import 'package:first_flutter_app/6/6.4.dart';
-import 'package:first_flutter_app/6/6.5.dart';
+// import 'package:first_flutter_app/6/6.5.dart';
+import 'package:first_flutter_app/6/6.6.dart';
 
 void main(List<String> args) {
   runApp(MyApp());
@@ -44,7 +45,7 @@ class HomeScreen extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => CustomScrollViewRoute()
+                builder: (context) => ScrollerNotificationTestRoute()
               )
             );
           },
