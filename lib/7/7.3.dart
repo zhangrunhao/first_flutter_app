@@ -35,10 +35,16 @@ class ChangeNotifierProvider<T extends ChangeNotifier> extends StatefulWidget {
   final T data;
 
   // 定义一个便捷方法, 便于在子树中的widget获取数据
-  static T of<T>(BuildContext context) {
+  static T of<T>(BuildContext context, {
+    bool listen = true,
+  }) {
     // 也就是在获取数据的时候, 进行绑定
     final type = _typeOf<InheritedProvider<T>>();
-    final provider = context.inheritFromWidgetOfExactType(type) as InheritedProvider<T>;
+    final provider = listen ?
+      context.inheritFromWidgetOfExactType(type) as InheritedProvider<T>
+      :
+      context.ancestorInheritedElementForWidgetOfExactType(type).widget as InheritedProvider<T>
+      ;
     return provider.data;
   }
 
@@ -156,16 +162,22 @@ class _ProviderRouteState extends State<ProviderRoute> {
             builder: (context) {
               return Column(
                 children: <Widget>[
-                  Builder(builder: (context) {
-                    var car = ChangeNotifierProvider.of<CartModel>(context);
-                    return Text('总价: ${car.totalPrice}');
-                  },),
+                  // Builder(builder: (context) {
+                  //   var car = ChangeNotifierProvider.of<CartModel>(context);
+                  //   return Text('总价: ${car.totalPrice}');
+                  // },),
+                  // TODO: 没有看懂这个简写的公式...
+                  Consumer<CartModel>(
+                    builder: (context, car) {
+                      return Text('总价: ${car.totalPrice}');
+                    },
+                  ),
                   Builder(builder: (context) {
                     print('RadiseButton build');
                     return RaisedButton(
                       child: Text('添加商品'),
                       onPressed: () {
-                        var car = ChangeNotifierProvider.of<CartModel>(context);
+                        var car = ChangeNotifierProvider.of<CartModel>(context, listen: false);
                         car.add(Item(price: 20, count: 1));
                       },
                     );
@@ -180,10 +192,31 @@ class _ProviderRouteState extends State<ProviderRoute> {
   }
 }
 
-/**
+/*
  * 总结运行过程: 
  * onPressed => car.add => notifyListeners()
  *  => ( _ChangeNotifierProviderState在initState阶段 设置了监听) => 
  * ChangeNotifierProvider 执行 build => InheritedProvider build 重构
  * => 依赖 InheritedProvider 的windget都会进行重构
  */
+
+// 这是一个便捷类, 获取当前context, 和指定数据类型的provider
+class Consumer<T> extends StatelessWidget  {
+  Consumer({
+    Key key,
+    @required this.builder,
+    this.child
+    // TODO: assert 又是什么语法??
+  }) : assert(builder != null),  super(key: key);
+
+  final Widget child;
+  final Widget Function (BuildContext context, T value) builder;
+
+  @override
+  Widget build(BuildContext context) {
+    return builder(
+      context,
+      ChangeNotifierProvider.of<T>(context),
+    );
+  }
+}
