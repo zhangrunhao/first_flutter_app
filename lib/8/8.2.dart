@@ -1,5 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:first_flutter_app/8/8.3.dart';
+
+var bus = new EventBus();
 
 class GestureDetectorRoute extends StatelessWidget{
   @override
@@ -19,12 +22,25 @@ class Test5 extends StatefulWidget{
 }
 
 class _Test5State extends State {
-  double _top = 0.0;
-  double _left = 0.0;
+  double _top = 50.0;
+  double _left = 20.0;
   @override
   Widget build(BuildContext context) {
+    // 每次build都会进行事件的订阅
+    var f = (arg) {
+      print('login');
+      print(arg);
+    };
+    bus.add('login', f);
     return Stack(
       children: <Widget>[
+        RaisedButton(
+          child: Text("点击"),
+          onPressed: () {
+            bus.emit('login', 'aaaaa');
+            // bus.off('login', f);
+          },
+        ),
         Positioned(
           top: _top,
           left: _left,
