@@ -1,6 +1,8 @@
 // 订阅者回调签名
 typedef void EventCallback(arg);
 
+class Zhangrh {
+}
 class EventBus {
   /**
    * TODO: 不能理解static变量, 和工厂构造函数, 已经这样做发生了什么.
@@ -13,6 +15,10 @@ class EventBus {
 
   // 保存单例
   static EventBus _singleton = new EventBus._internal();
+
+  // 如果static返回的是一个但单一的存储空间. 那singleton又是什么呢.
+  // 工厂构造函数又是什么.
+  static Zhangrh str = new Zhangrh();
 
   // 工厂构造函数
   factory EventBus () => _singleton;
