@@ -28,7 +28,8 @@ import 'package:flutter/material.dart';
 // import 'package:first_flutter_app/7/7.6.1.dart';
 // import 'package:first_flutter_app/7/7.6.2.dart';
 // import 'package:first_flutter_app/8/8.1.dart';
-import 'package:first_flutter_app/8/8.2.dart';
+// import 'package:first_flutter_app/8/8.2.dart';
+import 'package:first_flutter_app/8/8.4.dart';
 
 
 void main(List<String> args) {
@@ -55,7 +56,7 @@ class HomeScreen extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => GestureDetectorRoute()
+                builder: (context) => NotifinationTestRoute()
               )
             );
           },
