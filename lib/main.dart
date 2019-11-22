@@ -30,7 +30,8 @@ import 'package:flutter/material.dart';
 // import 'package:first_flutter_app/8/8.1.dart';
 // import 'package:first_flutter_app/8/8.2.dart';
 // import 'package:first_flutter_app/8/8.4.dart';
-import 'package:first_flutter_app/9/9.2.dart';
+// import 'package:first_flutter_app/9/9.2.dart';
+import 'package:first_flutter_app/9/9.3.dart';
 
 
 void main(List<String> args) {
@@ -57,7 +58,7 @@ class HomeScreen extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AnimationBasicStructionRoute()
+                builder: (context) => CustomRouteTransitionAnimationRoute()
               )
             );
           },
