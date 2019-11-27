@@ -1,19 +1,9 @@
 import 'package:flutter/material.dart';
 
-// class HeroAnimationRoute extends StatelessWidget{
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text("9.4"),),
-//       body: Text("9.4"),
-//     );
-//   }
-// }
-
 class HeroAnimationRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return Material( // TODO: 已经提交issue了.
       child: Container(
         alignment: Alignment.bottomCenter,
         child: InkWell(

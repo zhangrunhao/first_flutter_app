@@ -5,7 +5,34 @@ class PointerEventRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('8.1'),),
-      body: Test3(),
+      body: Test2(),
+    );
+  }
+}
+
+
+class Test4 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        Listener(
+          child: ConstrainedBox(
+            constraints: BoxConstraints.tight(Size(300.0, 200.0)),
+            child: DecoratedBox(
+                decoration: BoxDecoration(color: Colors.blue)),
+          ),
+          onPointerDown: (event) => print("down0"),
+        ),
+        Listener(
+          child: ConstrainedBox(
+            constraints: BoxConstraints.tight(Size(200.0, 100.0)),
+            child: Center(child: Text("左上角200*100范围内非文本区域点击")),
+          ),
+          onPointerDown: (event) => print("down1"),
+          behavior: HitTestBehavior.translucent, //放开此行注释后可以"点透"
+        )
+      ],
     );
   }
 }
@@ -51,7 +78,7 @@ class Test2 extends StatelessWidget {
           ),
           onPointerDown: (event) => print("down1"),
           // TODO: 所有的属性, 在点击文本区域时, 结果全部一致.无法理解属性区别
-          // behavior: HitTestBehavior.translucent, // 打印 down1
+          behavior: HitTestBehavior.translucent, // 打印 down1 down0
           // behavior: HitTestBehavior.deferToChild, // down1
           // behavior: HitTestBehavior.opaque, // down1
           // down1
