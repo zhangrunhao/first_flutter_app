@@ -34,7 +34,8 @@ import 'package:flutter/material.dart';
 // import 'package:first_flutter_app/9/9.3.dart';
 // import 'package:first_flutter_app/9/9.4.dart';
 // import 'package:first_flutter_app/9/9.5.dart';
-import 'package:first_flutter_app/9/9.6.dart';
+// import 'package:first_flutter_app/9/9.6.dart';
+import 'package:first_flutter_app/9/9.7.dart';
 
 
 void main(List<String> args) {
@@ -61,7 +62,7 @@ class HomeScreen extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AnimatiedSwitcherCounterRoute()
+                builder: (context) => AnimationTransitonCompositonRoute()
               )
             );
           },
