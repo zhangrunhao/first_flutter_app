@@ -30,7 +30,8 @@ class _Test1State extends State<Test1> {
   Future<File> _getLocalFile() async {
     // 获取应用目录
     String dir = (await getApplicationDocumentsDirectory()).path;
-    return File([null], '$dir/counter.txt');
+    // return File([null], '$dir/counter.txt');
+    return File('');
   }
   Future<int> _readCounter() async {
     // try {
